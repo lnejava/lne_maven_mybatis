@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+<!--在environments配置数据库连接信息-->
+<!--    在environments标签中可以定义多个environment，每个environment标签可以定义一套连接信息
+-->
+<!--    default表示使用那一套连接信息environment-->
+    <environments default="mysql">
+        <environment id="mysql">
+<!--  transactionManager用于数据库管理方式-->
+            <transactionManager type="JDBC"></transactionManager>
+<!-- dataSource用来配置数据连接信息-->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://192.168.230.135:30336/db_2022_mybatis?serverTimeZone=UTC"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+
+        <environment id="oracle">
+            <transactionManager type=""></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="192.168.230.175:30336/db_2022_mybatis?serverTimeZone=UTC"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="mappers/StudentMapper.xml"></mapper>
+    </mappers>
+</configuration>
