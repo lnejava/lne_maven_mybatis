@@ -39,6 +39,7 @@ public class StudentDaoTest {
      * @date: 2022/3/6 22:17
      */
 
+    //插入方法测试
     @Test
     public void insertStudent() {
 
@@ -47,9 +48,23 @@ public class StudentDaoTest {
             //事务提交
             sqlSession.commit();
             System.out.println(i);
+            assertEquals(1,i);
     }
 
+    //删除方法测试
     @Test
     public void deleteStudent() {
+        int i = studentDao.deleteStudent("1001");
+        sqlSession.commit();
+        System.out.println(i);
+        assertEquals(1,i);
+
+    }
+    //修改方法测试
+    @Test
+    public void updateStudent(){
+        int i = studentDao.updateStudent(new Student(0,"1001","铁柱","男",33));
+        assertEquals(1,i);
+        sqlSession.commit();
     }
 }

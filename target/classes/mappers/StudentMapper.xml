@@ -9,4 +9,7 @@
     <delete id="deleteStudent">
         delete from tb_students where stu_num = #{stuNum}
     </delete>
+    <update id="updateStudent">
+        update tb_students set stu_name=#{stuName},stu_gender=#{stuGender},stu_age=#{stuAge} where stu_num=#{stuNum}
+    </update>
 </mapper>
