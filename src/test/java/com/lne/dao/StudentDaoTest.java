@@ -1,5 +1,6 @@
 package com.lne.dao;
 
+import com.lne.common.MyBatisUtil;
 import com.lne.pojo.Student;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -67,4 +68,40 @@ public class StudentDaoTest {
         assertEquals(1,i);
         sqlSession.commit();
     }
+
+    // 手动事务管理,当获取一个sqlSession对象就开启了一个事务
+    @Test
+    public  void handleTransactionTest() {
+        try{
+            //获取事务对象
+            SqlSession sqlSession = MyBatisUtil.getSession();
+            //获取接口实现类的一个实列
+            StudentDao studentDao =sqlSession.getMapper(StudentDao.class);
+            int i = studentDao.updateStudent(new Student(0,"1001","铁柱","男",33));
+            assertEquals(1,i);
+            sqlSession.commit();
+
+        }catch (Exception e){
+            e.printStackTrace();
+            //当执行异常，就回滚，防止错误操作数据
+            sqlSession.rollback();
+        }
+
+    }
+
+    //自动事务管理，适合单条sql
+    @Test
+    public  void autoTransactionTest() {
+        try{
+            //获取接口实现类的一个实列
+            StudentDao studentDao =MyBatisUtil.getMapper(StudentDao.class);
+            int i = studentDao.updateStudent(new Student(0,"1001","铁柱","男",33));
+            assertEquals(1,i);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
 }

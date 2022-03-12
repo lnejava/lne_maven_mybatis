@@ -3,7 +3,7 @@
 <!--mapper文件相当于DAO接口的实现类，namespace属性要指定 要实现的dao接口的全限定名-->
 <mapper namespace="com.lne.dao.StudentDao">
 <!--    resultMap 定义查询结果字段与实体类属性的对应关系-->
-    <resultMap id="studentMap" type="com/lne/pojo/Student">
+    <resultMap id="studentMap" type="Student">
         <id column="sid" property="stuId"/>
         <result column="stu_num" property="stuNum"/>
         <result column="stu_name" property="stuName"/>
@@ -12,7 +12,7 @@
     </resultMap>
 <!--    useGeneratedKeys="true" 设置添加操作是否需要回填生成的主键-->
 <!--     keyProperty="stuId" 设置回填主键值赋值到参数对象的那个属性-->
-    <insert id="insertStudent" parameterType="com.lne.pojo.Student" useGeneratedKeys="true" keyProperty="stuId">
+    <insert id="insertStudent" parameterType="Student" useGeneratedKeys="true" keyProperty="stuId">
         insert into tb_students(stu_num,stu_name,stu_gender,stu_age)
         values(#{stuNum},#{stuName},#{stuGender},#{stuAge})
     </insert>

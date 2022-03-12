@@ -3,6 +3,24 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+<!--    引用配置文件-->
+    <properties resource="jdbc.properties"></properties>
+    <settings>
+<!--        开启二级缓存-->
+        <setting name="cacheEnabled" value="true"/>
+<!--        开启延迟加载-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+    </settings>
+
+<!--    用于给实体类取名，在映射文件中可以直接使用别名来代替全类名-->
+    <typeAliases>
+        <typeAlias type="com.lne.pojo.Student" alias="Student"></typeAlias>
+    </typeAliases>
+
+<!--    定义插件，例如分页插件-->
+    <plugins>
+        <plugin interceptor=""></plugin>
+    </plugins>
 
 <!--在environments配置数据库连接信息-->
 <!--    在environments标签中可以定义多个environment，每个environment标签可以定义一套连接信息
@@ -10,27 +28,21 @@
 <!--    default表示使用那一套连接信息environment-->
     <environments default="mysql">
         <environment id="mysql">
-<!--  transactionManager用于数据库管理方式-->
+<!--
+ transactionManager用于数据库管理方式
+ type="JDBC" 可以进行事务的提交和回滚
+ type="MANAGED" 依赖容器完成事务管理，本身不进行事务提交和回滚操作
+-->
             <transactionManager type="JDBC"></transactionManager>
-<!-- dataSource用来配置数据连接信息-->
+<!-- dataSource用来配置数据连接信息  UNPOOLED|POOLED|JNDI-->
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://192.168.230.135:30336/db_2022_mybatis?serverTimeZone=UTC"/>
-                <property name="username" value="root"/>
-                <property name="password" value="123456"/>
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
             </dataSource>
         </environment>
 
-        <environment id="oracle">
-            <transactionManager type=""></transactionManager>
-            <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="192.168.230.175:30336/db_2022_mybatis?serverTimeZone=UTC"/>
-                <property name="username" value="root"/>
-                <property name="password" value="123456"/>
-            </dataSource>
-
-        </environment>
     </environments>
 
     <mappers>
