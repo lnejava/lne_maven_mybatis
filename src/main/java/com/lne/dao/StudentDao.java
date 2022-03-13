@@ -21,4 +21,6 @@ public interface StudentDao {
      //分页查询多参数的处理，需要两个参数分页开始和每页展示多少
     public List<Student> listStudentByPage(@Param("start")int start,
                                            @Param("pageSize")int pageSize);
+    //通过分页插件
+    public List<Student> listStudentsByPage();
 }

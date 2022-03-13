@@ -1,5 +1,7 @@
 package com.lne.dao;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lne.common.MyBatisUtil;
 import com.lne.pojo.Student;
 import org.apache.ibatis.io.Resources;
@@ -10,6 +12,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -45,7 +48,7 @@ public class StudentDaoTest {
     public void insertStudent() {
 
             //测试studentDao中的方法
-            int i = studentDao.insertStudent(new Student(0,"1001","张三","男",22));
+            int i = studentDao.insertStudent(new Student(5,"1015","张三","女",22));
             //事务提交
             sqlSession.commit();
             System.out.println(i);
@@ -102,6 +105,19 @@ public class StudentDaoTest {
             e.printStackTrace();
         }
 
+    }
+
+    //分页查询
+    @Test
+    public void pageHelperTest(){
+        StudentDao studentDao = MyBatisUtil.getMapper(StudentDao.class);
+        PageHelper.startPage(2,3);
+        List<Student> list = studentDao.listStudentsByPage();
+        PageInfo<Student> pageInfo = new PageInfo<>(list);
+        List<Student> list1 = pageInfo.getList();
+        list1.forEach((lis)->{
+            System.out.println(lis);
+        });
     }
 
 }

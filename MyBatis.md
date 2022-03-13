@@ -521,4 +521,48 @@ public class MyBatisUtil {
 </configuration>
 
 ```
+## 9、mapper映射文件
 
+## 10、分页插件
+
+> 分页插件是一个独立于MaBatis框架之外的第三方插件
+>
+> PageHelper
+
+### 10.1 添加依赖
+
+```xml
+<!--      PageHelper  -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>5.3.0</version>
+        </dependency>
+```
+
+### 10.2 配置插件
+
+> 在主配置文件中通过plugins标签设置
+
+```xml
+<!--    定义插件，例如分页插件-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+    </plugins>
+```
+
+```java
+    //分页查询
+    @Test
+    public void pageHelperTest(){
+        StudentDao studentDao = MyBatisUtil.getMapper(StudentDao.class);
+        PageHelper.startPage(2,3);	// 必须将拦截器定义在查询之前
+        List<Student> list = studentDao.listStudentsByPage();
+        PageInfo<Student> pageInfo = new PageInfo<>(list);
+        List<Student> list1 = pageInfo.getList();
+        list1.forEach((lis)->{
+            System.out.println(lis);
+        });
+    }
+
+```

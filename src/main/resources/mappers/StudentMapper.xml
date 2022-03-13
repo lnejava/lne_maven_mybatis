@@ -25,7 +25,11 @@
     </update>
     <select id="listStudentByPage" resultMap="studentMap">
         select sid,stu_num,stu_gender,stu_age
-        from tb_student
+        from tb_students
         limit #{start},#{pageSize}
+    </select>
+    <select id="listStudentsByPage" resultMap="studentMap">
+        select sid,stu_num,stu_gender,stu_age
+                from tb_students
     </select>
 </mapper>
